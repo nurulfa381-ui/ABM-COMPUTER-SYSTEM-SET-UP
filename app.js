@@ -82,22 +82,30 @@ const missions = [
     code: "KP01",
     titleBm: "Analisis Job Request / Change Order",
     titleEn: "Analyse Job Request / Change Order",
-    scopeBm: "Fahami arahan kerja, keperluan pengguna dan skop pemasangan komputer.",
-    scopeEn: "Understand work instructions, user requirements and computer setup scope.",
+    scopeBm: "Fahami, semak dan sahkan arahan kerja sebelum kerja set-up komputer dimulakan.",
+    scopeEn: "Understand, check and confirm the work instruction before computer setup begins.",
     notesBm: [
-      "Baca job request untuk kenal pasti jenis komputer, lokasi pemasangan dan tarikh siap.",
-      "Semak change order jika berlaku perubahan spesifikasi, perisian atau perkakasan.",
-      "Catat keperluan pengguna seperti tujuan kerja, aplikasi utama dan akses rangkaian.",
-      "Sahkan risiko awal seperti data lama, kekangan masa dan kelulusan penyelia."
+      "Job request ialah dokumen atau arahan rasmi yang menerangkan kerja set-up komputer yang perlu dibuat oleh juruteknik.",
+      "Maklumat wajib dalam job request termasuk nama pengguna, lokasi kerja, jenis komputer, spesifikasi diperlukan, perisian, periferal, akses rangkaian dan tarikh siap.",
+      "Change order digunakan apabila terdapat perubahan selepas arahan asal dikeluarkan, contohnya tambah RAM, tukar SSD, ubah OS, tambah printer atau ubah lokasi pemasangan.",
+      "Juruteknik mesti menyemak skop kerja supaya tidak memasang komponen atau perisian yang tidak diminta.",
+      "Keperluan pengguna perlu dikaitkan dengan tujuan kerja. Contohnya komputer pejabat perlukan aplikasi dokumen, komputer reka bentuk perlukan RAM/GPU lebih tinggi, dan komputer kaunter perlukan printer atau scanner.",
+      "Risiko awal mesti dikenal pasti sebelum kerja bermula, termasuk data lama pengguna, lesen perisian, keserasian hardware, bekalan elektrik, port rangkaian, masa kerja dan kelulusan penyelia.",
+      "Maklumat yang tidak jelas perlu disahkan dengan penyelia atau pengguna sebelum pemasangan dibuat.",
+      "Hasil analisis perlu ditukar kepada checklist kerja supaya penyediaan tools, hardware dan software pada KP02 lebih tepat."
     ],
     notesEn: [
-      "Read the job request to identify computer type, setup location and completion date.",
-      "Check the change order when hardware, software or specification changes occur.",
-      "Record user needs such as work purpose, main applications and network access.",
-      "Confirm early risks such as existing data, time limits and supervisor approval."
+      "A job request is an official document or instruction that explains the computer setup work required from the technician.",
+      "Required information includes user name, work location, computer type, required specification, software, peripherals, network access and due date.",
+      "A change order is used when the original instruction changes, such as adding RAM, changing SSD, changing OS, adding a printer or changing setup location.",
+      "The technician must check the work scope to avoid installing components or software that were not requested.",
+      "User needs must match the work purpose. For example, an office PC needs document apps, a design PC needs higher RAM/GPU, and a counter PC may need a printer or scanner.",
+      "Initial risks must be identified before work starts, including user data, software licence, hardware compatibility, power supply, network port, work time and supervisor approval.",
+      "Unclear information must be confirmed with the supervisor or user before installation is done.",
+      "The analysis result should become a work checklist so tools, hardware and software preparation in KP02 is more accurate."
     ],
-    activityBm: "Padankan job request dengan senarai keperluan: jenis PC, OS, aplikasi, akses rangkaian dan tarikh siap.",
-    activityEn: "Match a job request with requirements: PC type, OS, applications, network access and due date."
+    activityBm: "Analisis satu tiket kerja sebenar: kenal pasti skop, perubahan, risiko, keperluan pengguna dan checklist sebelum kerja dimulakan.",
+    activityEn: "Analyse a realistic work ticket: identify scope, changes, risks, user needs and checklist items before work begins."
   },
   {
     id: 2,
@@ -446,6 +454,113 @@ const quizBank = {
   ]
 };
 
+const kp01Quiz = {
+  bm: [
+    [
+      "Apakah maksud job request dalam kerja Computer System Set-Up?",
+      ["Senarai harga komputer", "Arahan rasmi kerja yang perlu dibuat", "Fail backup pengguna", "Nama jenama komputer"],
+      1
+    ],
+    [
+      "Maklumat manakah paling penting untuk menentukan skop kerja?",
+      ["Warna wallpaper", "Jenis muzik pengguna", "Keperluan hardware, software dan lokasi kerja", "Saiz meja guru"],
+      2
+    ],
+    [
+      "Bilakah change order digunakan?",
+      ["Apabila arahan asal berubah selepas job request dikeluarkan", "Apabila komputer sudah siap dihantar", "Apabila pelajar tamat kuiz", "Apabila casing dibersihkan"],
+      0
+    ],
+    [
+      "Contoh change order yang betul ialah",
+      ["Tukar nama fail laporan", "Buka browser untuk ujian", "Padam nota lama", "Naik taraf RAM daripada 8GB kepada 16GB"],
+      3
+    ],
+    [
+      "Mengapa juruteknik perlu mengesahkan maklumat yang tidak jelas?",
+      ["Supaya kerja tidak salah skop dan tidak membazir masa", "Supaya boleh terus format semua komputer", "Supaya tidak perlu buat laporan", "Supaya semua aplikasi dipasang secara rawak"],
+      0
+    ],
+    [
+      "Jika pengguna perlukan komputer untuk reka bentuk asas, keperluan yang lebih sesuai ialah",
+      ["Printer dot matrix sahaja", "Tiada akses internet", "RAM lebih tinggi dan storage mencukupi", "Keyboard tanpa monitor"],
+      2
+    ],
+    [
+      "Antara berikut, yang manakah risiko awal sebelum kerja set-up?",
+      ["Nombor telefon kedai", "Warna kerusi", "Susunan ikon desktop", "Lesen perisian belum disahkan"],
+      3
+    ],
+    [
+      "Apakah hasil akhir analisis KP01 yang membantu KP02?",
+      ["Checklist tools, hardware dan software", "Gambar bebas", "Lagu latar", "Nama kumpulan WhatsApp"],
+      0
+    ],
+    [
+      "Jika job request menyatakan 'printer rangkaian diperlukan', juruteknik perlu semak",
+      ["Jenis casing sahaja", "IP printer, driver dan sambungan rangkaian", "Wallpaper pengguna", "Saiz font nota"],
+      1
+    ],
+    [
+      "Apakah tindakan terbaik jika tarikh siap terlalu singkat tetapi change order menambah kerja?",
+      ["Abaikan change order", "Pasang komponen secara rawak", "Maklumkan penyelia dan dapatkan pengesahan keutamaan kerja", "Serahkan komputer tanpa ujian"],
+      2
+    ]
+  ],
+  en: [
+    [
+      "What does job request mean in Computer System Set-Up work?",
+      ["Computer price list", "Official instruction for the required work", "User backup file", "Computer brand name"],
+      1
+    ],
+    [
+      "Which information is most important for deciding the work scope?",
+      ["Wallpaper colour", "User's music type", "Hardware, software and work location requirements", "Teacher's desk size"],
+      2
+    ],
+    [
+      "When is a change order used?",
+      ["When the original instruction changes after the job request is issued", "After the computer has already been delivered", "When students finish the quiz", "When the casing is cleaned"],
+      0
+    ],
+    [
+      "Which is a correct example of a change order?",
+      ["Change report filename", "Open browser for testing", "Delete old notes", "Upgrade RAM from 8GB to 16GB"],
+      3
+    ],
+    [
+      "Why must a technician confirm unclear information?",
+      ["To avoid wrong work scope and wasted time", "To format every computer immediately", "To avoid preparing a report", "To install all applications randomly"],
+      0
+    ],
+    [
+      "If the user needs a computer for basic design work, the more suitable requirement is",
+      ["Dot matrix printer only", "No internet access", "Higher RAM and enough storage", "Keyboard without monitor"],
+      2
+    ],
+    [
+      "Which item is an initial risk before setup work?",
+      ["Shop phone number", "Chair colour", "Desktop icon arrangement", "Software licence not confirmed"],
+      3
+    ],
+    [
+      "What final output from KP01 helps KP02?",
+      ["Tools, hardware and software checklist", "Random picture", "Background song", "WhatsApp group name"],
+      0
+    ],
+    [
+      "If the job request states 'network printer required', the technician should check",
+      ["Casing type only", "Printer IP, driver and network connection", "User wallpaper", "Note font size"],
+      1
+    ],
+    [
+      "What is the best action if the deadline is short but the change order adds more work?",
+      ["Ignore the change order", "Install parts randomly", "Inform the supervisor and confirm work priority", "Hand over the PC without testing"],
+      2
+    ]
+  ]
+};
+
 const state = loadState();
 
 function loadState() {
@@ -661,9 +776,12 @@ function renderMission(id) {
           </div>
         </div>
       </div>
+      ${mission.id === 1 ? renderKp01Premium() : ""}
       <div id="quizMount"></div>
     </section>
   `);
+
+  if (mission.id === 1) bindKp01Game();
 }
 
 function renderSimulation(mission) {
@@ -682,6 +800,177 @@ function renderSimulation(mission) {
   }
 
   return `<div class="bench">${parts.map((part) => `<div class="part">${part}</div>`).join("")}</div>`;
+}
+
+function renderKp01Premium() {
+  const bm = state.lang === "bm";
+  const labels = bm
+    ? {
+        video: "Video Ringkas: Dari Tiket Kerja ke Checklist",
+        flow: "Animasi Aliran Kerja KP01",
+        ticket: "Simulasi Tiket Kerja Sebenar",
+        activities: "Aktiviti Pelajar",
+        game: "Mini Game: Kategori Maklumat",
+        scenarioTitle: "Tiket C01-001",
+        request: "Makmal Komputer 2 memerlukan 1 unit PC baharu untuk kerja pejabat dan latihan asas. Pengguna perlukan Windows 11 Pro, Microsoft Office, browser, printer rangkaian dan capaian internet. Kerja perlu siap sebelum jam 3.00 petang.",
+        change: "Change Order: SSD asal 256GB ditukar kepada 512GB dan RAM dinaikkan daripada 8GB kepada 16GB kerana komputer akan digunakan untuk latihan reka bentuk asas.",
+        risk: "Risiko: lesen perisian perlu disahkan, printer rangkaian perlu IP yang betul, dan masa pemasangan terhad.",
+        gameHelp: "Klik kategori yang betul untuk setiap maklumat. Jawapan betul akan bertukar hijau.",
+        done: "Betul. Maklumat ini sudah dikategorikan.",
+        wrong: "Belum tepat. Semak semula maksud maklumat tersebut."
+      }
+    : {
+        video: "Short Video: From Work Ticket to Checklist",
+        flow: "KP01 Workflow Animation",
+        ticket: "Realistic Work Ticket Simulation",
+        activities: "Student Activities",
+        game: "Mini Game: Information Category",
+        scenarioTitle: "Ticket C01-001",
+        request: "Computer Lab 2 needs 1 new PC for office work and basic training. The user needs Windows 11 Pro, Microsoft Office, browser, network printer and internet access. The work must finish before 3.00 p.m.",
+        change: "Change Order: The original 256GB SSD is changed to 512GB and RAM is upgraded from 8GB to 16GB because the PC will be used for basic design training.",
+        risk: "Risk: software licence must be confirmed, network printer needs the correct IP, and installation time is limited.",
+        gameHelp: "Click the correct category for each information item. Correct answers turn green.",
+        done: "Correct. This information is now categorised.",
+        wrong: "Not yet. Check the meaning of the information again."
+      };
+
+  const flow = bm
+    ? ["Terima tiket", "Baca arahan", "Kesan perubahan", "Semak risiko", "Bina checklist"]
+    : ["Receive ticket", "Read request", "Detect change", "Check risk", "Build checklist"];
+
+  const activities = bm
+    ? [
+        "Aktiviti 1: Pelajar tandakan maklumat wajib dalam job request menggunakan warna berbeza.",
+        "Aktiviti 2: Pelajar bezakan arahan asal dan change order dalam jadual ringkas.",
+        "Aktiviti 3: Pelajar senaraikan hardware, software, periferal dan rangkaian yang diperlukan.",
+        "Aktiviti 4: Pelajar bincang risiko sebelum pemasangan, contohnya data lama, lesen dan keserasian komponen.",
+        "Aktiviti 5: Pelajar hasilkan checklist KP02 berdasarkan tiket kerja KP01.",
+        "Aktiviti 6: Pelajar lakon peranan sebagai pengguna, penyelia dan juruteknik untuk proses pengesahan kerja."
+      ]
+    : [
+        "Activity 1: Students mark required information in the job request using different colours.",
+        "Activity 2: Students separate the original instruction and change order in a simple table.",
+        "Activity 3: Students list required hardware, software, peripherals and network items.",
+        "Activity 4: Students discuss setup risks such as old data, licensing and component compatibility.",
+        "Activity 5: Students create a KP02 checklist based on the KP01 work ticket.",
+        "Activity 6: Students role-play as user, supervisor and technician for work confirmation."
+      ];
+
+  const gameItems = bm
+    ? [
+        ["Windows 11 Pro", "software"],
+        ["RAM 16GB", "hardware"],
+        ["Printer rangkaian", "peripheral"],
+        ["Siap sebelum 3.00 petang", "schedule"]
+      ]
+    : [
+        ["Windows 11 Pro", "software"],
+        ["16GB RAM", "hardware"],
+        ["Network printer", "peripheral"],
+        ["Finish before 3.00 p.m.", "schedule"]
+      ];
+
+  const categories = bm
+    ? [
+        ["hardware", "Hardware"],
+        ["software", "Software"],
+        ["peripheral", "Periferal"],
+        ["schedule", "Masa"]
+      ]
+    : [
+        ["hardware", "Hardware"],
+        ["software", "Software"],
+        ["peripheral", "Peripheral"],
+        ["schedule", "Schedule"]
+      ];
+
+  return `
+    <div class="kp01-grid">
+      <div class="panel lesson-box">
+        <h2>${labels.video}</h2>
+        <div class="video-card" aria-label="${labels.video}">
+          <div class="video-screen">
+            <div class="scan-line"></div>
+            <div class="ticket-visual">
+              <span>JOB REQUEST</span>
+              <strong>C01-001</strong>
+              <small>${bm ? "PC baharu + printer rangkaian" : "New PC + network printer"}</small>
+            </div>
+            <div class="play-dot"></div>
+          </div>
+          <ol class="activity-list">
+            <li>${bm ? "Baca tiket kerja dengan lengkap." : "Read the work ticket completely."}</li>
+            <li>${bm ? "Kenal pasti perubahan selepas arahan asal." : "Identify changes after the original request."}</li>
+            <li>${bm ? "Tukar analisis kepada checklist kerja." : "Convert the analysis into a work checklist."}</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="panel lesson-box">
+        <h2>${labels.flow}</h2>
+        <div class="flow-steps">
+          ${flow.map((item, index) => `<div class="flow-step" style="--delay:${index}">${item}</div>`).join("")}
+        </div>
+      </div>
+
+      <div class="panel lesson-box wide">
+        <h2>${labels.ticket}</h2>
+        <div class="ticket-sim">
+          <div>
+            <span class="tag">${labels.scenarioTitle}</span>
+            <p>${labels.request}</p>
+          </div>
+          <div>
+            <span class="tag lock">Change Order</span>
+            <p>${labels.change}</p>
+          </div>
+          <div>
+            <span class="tag">${bm ? "Risiko Awal" : "Initial Risk"}</span>
+            <p>${labels.risk}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel lesson-box">
+        <h2>${labels.activities}</h2>
+        <ol class="activity-list">${activities.map((item) => `<li>${item}</li>`).join("")}</ol>
+      </div>
+
+      <div class="panel lesson-box">
+        <h2>${labels.game}</h2>
+        <p class="muted">${labels.gameHelp}</p>
+        <div class="game-list">
+          ${gameItems.map(([item, answer], index) => `
+            <div class="game-card" data-game-card="${index}">
+              <strong>${item}</strong>
+              <div class="game-options">
+                ${categories.map(([value, label]) => `<button class="btn" data-game-answer="${value}" data-correct="${answer}" data-card="${index}">${label}</button>`).join("")}
+              </div>
+            </div>
+          `).join("")}
+        </div>
+        <div id="kp01GameResult" class="result"></div>
+        <template id="kp01GameText" data-done="${labels.done}" data-wrong="${labels.wrong}"></template>
+      </div>
+    </div>
+  `;
+}
+
+function bindKp01Game() {
+  document.querySelectorAll("[data-game-answer]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const card = document.querySelector(`[data-game-card="${button.dataset.card}"]`);
+      const result = document.getElementById("kp01GameResult");
+      const gameText = document.getElementById("kp01GameText");
+      const correct = button.dataset.gameAnswer === button.dataset.correct;
+
+      card.querySelectorAll("[data-game-answer]").forEach((item) => item.classList.remove("selected"));
+      button.classList.add("selected");
+      card.classList.toggle("correct", correct);
+      card.classList.toggle("incorrect", !correct);
+      result.innerHTML = `<div class="${correct ? "success-note" : "error"}">${correct ? gameText.dataset.done : gameText.dataset.wrong}</div>`;
+    });
+  });
 }
 
 function renderQuiz(id) {
@@ -749,6 +1038,8 @@ function renderQuiz(id) {
 }
 
 function buildQuiz(id) {
+  if (id === 1) return kp01Quiz[state.lang];
+
   const bank = quizBank[state.lang];
   const previous = bank[(id + 13) % bank.length];
   const current = bank[id - 1];
