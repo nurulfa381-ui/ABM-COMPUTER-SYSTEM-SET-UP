@@ -406,6 +406,60 @@ select:focus {
   color: #1c5fc2;
 }
 
+.college-header {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 2px solid #c8d6ee;
+  padding-bottom: 14px;
+}
+
+.college-logo {
+  display: grid;
+  place-items: center;
+  width: 82px;
+  height: 82px;
+  background: #eef4ff;
+  border: 1px solid #c8d6ee;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.college-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 5px;
+}
+
+.college-logo span {
+  display: grid;
+  place-items: center;
+  color: #40506c;
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.college-info {
+  display: grid;
+  gap: 3px;
+  color: #0a1a33;
+  line-height: 1.25;
+}
+
+.college-info strong {
+  font-size: 1.05rem;
+}
+
+.college-info span {
+  color: #40506c;
+  font-weight: 700;
+  font-size: 0.86rem;
+}
+
 .formal-head {
   display: flex;
   justify-content: space-between;

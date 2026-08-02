@@ -688,6 +688,23 @@ function createFormalRecord(id, score, correct, total) {
   };
 }
 
+function renderCollegeHeader() {
+  return `
+    <div class="college-header">
+      <div class="college-logo">
+        <img src="assets/logo-mentari.png" alt="Logo Kolej Kemahiran Mentari" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+        <span>LOGO<br>KOLEJ</span>
+      </div>
+      <div class="college-info">
+        <strong>KOLEJ KEMAHIRAN MENTARI (L02432)</strong>
+        <span>NO 22&amp;24, 1ST &amp; 3RD FLOOR, JALAN MERSING</span>
+        <span>86000 KLUANG, JOHOR DARUL TAKZIM</span>
+        <span>TEL : 07-7764455</span>
+      </div>
+    </div>
+  `;
+}
+
 function renderFormalResult(record) {
   if (!record) return "";
   const passed = record.status === "TERAMPIL";
@@ -700,6 +717,7 @@ function renderFormalResult(record) {
 
   return `
     <div class="formal-result ${passed ? "competent" : "not-yet"}">
+      ${renderCollegeHeader()}
       <div class="formal-head">
         <div>
           <span class="eyebrow">${t("formalResult")}</span>
@@ -904,6 +922,7 @@ function renderFormalReport() {
         </div>
       </div>
       <div class="panel lesson-box report-panel">
+        ${renderCollegeHeader()}
         <div class="report-title">
           <div>
             <strong>COMPUTER SYSTEM SET-UP C01</strong>
