@@ -20,7 +20,7 @@ ABM interaktif untuk unit **IT-020-3:2013-C01 COMPUTER SYSTEM SET-UP**.
 - Keputusan formal KT ditambah: nama pelajar, ID, KP/KT, markah, status TERAMPIL/BELUM TERAMPIL, rasmi, locked, tarikh dan ruang pegawai penilai.
 - Markah 60% ke atas disimpan sebagai rasmi dan locked seperti standard C05.
 - Header rasmi kolej ditambah pada slip keputusan dan laporan KT: KOLEJ KEMAHIRAN MENTARI (L02432), alamat Kluang dan nombor telefon.
-- Untuk logo sebenar, tambah fail `assets/logo-mentari.png`. Jika fail tiada, sistem papar kotak fallback `LOGO KOLEJ`.
+- Untuk logo sebenar, tambah fail `assets/logo-kolej.png`. Jika fail tiada, sistem papar kotak fallback `LOGO KOLEJ`.
 
 ## Fail
 
