@@ -891,11 +891,28 @@ function renderKp01Premium() {
         <div class="video-card" aria-label="${labels.video}">
           <div class="video-screen">
             <div class="scan-line"></div>
-            <div class="ticket-visual">
-              <span>JOB REQUEST</span>
-              <strong>C01-001</strong>
-              <small>${bm ? "PC baharu + printer rangkaian" : "New PC + network printer"}</small>
+            <div class="video-progress"></div>
+            <div class="video-frame frame-1">
+              <span>01</span>
+              <strong>${bm ? "Terima Job Request" : "Receive Job Request"}</strong>
+              <small>${bm ? "PC baharu untuk Makmal Komputer 2" : "New PC for Computer Lab 2"}</small>
             </div>
+            <div class="video-frame frame-2">
+              <span>02</span>
+              <strong>${bm ? "Semak Keperluan" : "Check Requirements"}</strong>
+              <small>${bm ? "OS, Office, browser, printer, internet" : "OS, Office, browser, printer, internet"}</small>
+            </div>
+            <div class="video-frame frame-3">
+              <span>03</span>
+              <strong>Change Order</strong>
+              <small>${bm ? "SSD 512GB + RAM 16GB" : "512GB SSD + 16GB RAM"}</small>
+            </div>
+            <div class="video-frame frame-4">
+              <span>04</span>
+              <strong>${bm ? "Bina Checklist KP02" : "Build KP02 Checklist"}</strong>
+              <small>${bm ? "Tools, hardware, software, risiko" : "Tools, hardware, software, risks"}</small>
+            </div>
+            <div class="video-caption">${bm ? "Animasi auto: Tiket kerja dianalisis sebelum pemasangan komputer." : "Auto animation: Work ticket is analysed before computer setup."}</div>
             <div class="play-dot"></div>
           </div>
           <ol class="activity-list">

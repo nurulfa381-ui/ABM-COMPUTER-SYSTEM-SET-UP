@@ -416,33 +416,71 @@ select:focus {
   animation: scan 3.2s ease-in-out infinite;
 }
 
-.ticket-visual {
+.video-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-2), var(--warning), var(--success));
+  transform-origin: left;
+  animation: videoProgress 10s linear infinite;
+}
+
+.video-frame {
   position: absolute;
   left: 24px;
   right: 24px;
-  top: 38px;
+  top: 34px;
   display: grid;
   gap: 10px;
-  width: min(360px, calc(100% - 48px));
+  width: min(430px, calc(100% - 48px));
   background: rgba(245, 248, 255, 0.08);
   border: 1px solid rgba(245, 248, 255, 0.2);
   border-radius: 8px;
   padding: 18px;
-  animation: floatCard 4s ease-in-out infinite;
+  opacity: 0;
+  transform: translateX(36px) scale(0.96);
+  animation: videoFrame 10s ease-in-out infinite;
 }
 
-.ticket-visual span {
+.frame-1 {
+  animation-delay: 0s;
+}
+
+.frame-2 {
+  animation-delay: 2.5s;
+}
+
+.frame-3 {
+  animation-delay: 5s;
+}
+
+.frame-4 {
+  animation-delay: 7.5s;
+}
+
+.video-frame span {
   color: var(--primary-2);
   font-weight: 800;
   font-size: 0.82rem;
 }
 
-.ticket-visual strong {
+.video-frame strong {
   font-size: 1.7rem;
 }
 
-.ticket-visual small {
+.video-frame small {
   color: #d7e3ff;
+}
+
+.video-caption {
+  position: absolute;
+  left: 24px;
+  right: 92px;
+  bottom: 22px;
+  color: #d7e3ff;
+  font-size: 0.92rem;
 }
 
 .play-dot {
@@ -454,6 +492,7 @@ select:focus {
   background: var(--warning);
   clip-path: polygon(28% 18%, 28% 82%, 82% 50%);
   filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.32));
+  animation: playPulse 1.4s ease-in-out infinite;
 }
 
 .flow-steps {
@@ -548,13 +587,39 @@ select:focus {
   }
 }
 
-@keyframes floatCard {
+@keyframes videoFrame {
+  0% {
+    opacity: 0;
+    transform: translateX(36px) scale(0.96);
+  }
+  7%,
+  22% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  28%,
+  100% {
+    opacity: 0;
+    transform: translateX(-34px) scale(0.96);
+  }
+}
+
+@keyframes videoProgress {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes playPulse {
   0%,
   100% {
-    transform: translateY(0);
+    transform: scale(1);
   }
   50% {
-    transform: translateY(10px);
+    transform: scale(1.12);
   }
 }
 
