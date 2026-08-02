@@ -24,6 +24,7 @@ const text = {
     completed: "Selesai",
     logout: "Log keluar",
     reset: "Reset Progress",
+    report: "Keputusan KT",
     profile: "Profil",
     listen: "Audio Bacaan",
     back: "Kembali",
@@ -32,6 +33,17 @@ const text = {
     pass: "Terampil. KP seterusnya telah dibuka.",
     fail: "Belum terampil. Ulang kaji nota dan cuba semula.",
     score: "Markah",
+    formalResult: "Keputusan Formal KT",
+    formalRecord: "Rekod Keputusan KT",
+    studentName: "Nama Pelajar",
+    resultDate: "Tarikh",
+    status: "Status",
+    official: "Rasmi",
+    locked: "Dikunci",
+    notAssessed: "Belum Dinilai",
+    assessor: "Pegawai Penilai",
+    signature: "Tandatangan",
+    print: "Cetak",
     activity: "Latihan Simulasi",
     notes: "Nota Penting",
     quiz: "Kuiz KT",
@@ -60,6 +72,7 @@ const text = {
     completed: "Completed",
     logout: "Logout",
     reset: "Reset Progress",
+    report: "KT Results",
     profile: "Profile",
     listen: "Read Aloud",
     back: "Back",
@@ -68,6 +81,17 @@ const text = {
     pass: "Competent. The next KP has been unlocked.",
     fail: "Not yet competent. Revise the notes and try again.",
     score: "Score",
+    formalResult: "Formal KT Result",
+    formalRecord: "KT Result Record",
+    studentName: "Student Name",
+    resultDate: "Date",
+    status: "Status",
+    official: "Official",
+    locked: "Locked",
+    notAssessed: "Not Assessed",
+    assessor: "Assessor",
+    signature: "Signature",
+    print: "Print",
     activity: "Simulation Practice",
     notes: "Key Notes",
     quiz: "KT Quiz",
@@ -570,12 +594,42 @@ function loadState() {
     progress: {
       unlocked: 1,
       scores: {},
-      completed: []
+      completed: [],
+      records: {}
     }
   };
 
   try {
-    return { ...fallback, ...JSON.parse(localStorage.getItem(STORAGE_KEY)) };
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    const merged = { ...fallback, ...stored };
+    merged.progress = {
+      ...fallback.progress,
+      ...(stored?.progress || {})
+    };
+    merged.progress.records = merged.progress.records || {};
+    merged.progress.scores = merged.progress.scores || {};
+    merged.progress.completed = merged.progress.completed || [];
+    missions.forEach((mission) => {
+      const score = merged.progress.scores[mission.id];
+      if (score !== undefined && !merged.progress.records[mission.id]) {
+        const passed = Number(score) >= PASS_MARK;
+        merged.progress.records[mission.id] = {
+          kp: mission.code,
+          kt: `KT${String(mission.id).padStart(2, "0")}`,
+          score: Number(score),
+          correct: null,
+          total: null,
+          status: passed ? "TERAMPIL" : "BELUM TERAMPIL",
+          official: passed,
+          locked: passed,
+          passMark: PASS_MARK,
+          date: new Date().toISOString(),
+          studentName: merged.profile?.name || "",
+          studentId: merged.profile?.id || ""
+        };
+      }
+    });
+    return merged;
   } catch {
     return fallback;
   }
@@ -599,6 +653,74 @@ function missionScope(mission) {
 
 function missionNotes(mission) {
   return state.lang === "bm" ? mission.notesBm : mission.notesEn;
+}
+
+function ktCode(id) {
+  return `KT${String(id).padStart(2, "0")}`;
+}
+
+function formatDate(value) {
+  if (!value) return "-";
+  return new Intl.DateTimeFormat(state.lang === "bm" ? "ms-MY" : "en-MY", {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
+  }).format(new Date(value));
+}
+
+function createFormalRecord(id, score, correct, total) {
+  const passed = score >= PASS_MARK;
+  return {
+    kp: missions.find((item) => item.id === id)?.code || `KP${String(id).padStart(2, "0")}`,
+    kt: ktCode(id),
+    score,
+    correct,
+    total,
+    status: passed ? "TERAMPIL" : "BELUM TERAMPIL",
+    official: passed,
+    locked: passed,
+    passMark: PASS_MARK,
+    date: new Date().toISOString(),
+    studentName: state.profile?.name || "",
+    studentId: state.profile?.id || ""
+  };
+}
+
+function renderFormalResult(record) {
+  if (!record) return "";
+  const passed = record.status === "TERAMPIL";
+  const officialText = record.official
+    ? state.lang === "bm" ? "YA" : "YES"
+    : state.lang === "bm" ? "BELUM RASMI" : "NOT OFFICIAL";
+  const lockedText = record.locked
+    ? state.lang === "bm" ? "YA" : "YES"
+    : state.lang === "bm" ? "TIDAK" : "NO";
+
+  return `
+    <div class="formal-result ${passed ? "competent" : "not-yet"}">
+      <div class="formal-head">
+        <div>
+          <span class="eyebrow">${t("formalResult")}</span>
+          <h2>${record.kt} - ${record.kp}</h2>
+        </div>
+        <strong class="formal-status">${record.status}</strong>
+      </div>
+      <div class="formal-grid">
+        <div><span>${t("studentName")}</span><strong>${record.studentName}</strong></div>
+        <div><span>${t("studentId")}</span><strong>${record.studentId}</strong></div>
+        <div><span>${t("score")}</span><strong>${record.score}%</strong></div>
+        <div><span>${t("resultDate")}</span><strong>${formatDate(record.date)}</strong></div>
+        <div><span>${t("official")}</span><strong>${officialText}</strong></div>
+        <div><span>${t("locked")}</span><strong>${lockedText}</strong></div>
+      </div>
+      <div class="signature-row">
+        <div><span>${t("assessor")}</span><strong>________________________</strong></div>
+        <div><span>${t("signature")}</span><strong>________________________</strong></div>
+      </div>
+    </div>
+  `;
 }
 
 function validateProfile(name, id) {
@@ -708,6 +830,7 @@ function renderDashboard() {
         <div class="stat"><span>${t("level")}</span><strong>${level}</strong></div>
       </div>
       <div class="toolbar" style="justify-content:flex-start;margin-bottom:14px">
+        <button class="btn primary" data-action="report">${t("report")}</button>
         <button class="btn warning" data-action="reset">${t("reset")}</button>
       </div>
       <div class="grid">
@@ -725,6 +848,7 @@ function renderMissionCard(mission) {
   const locked = mission.id > state.progress.unlocked;
   const done = state.progress.completed.includes(mission.id);
   const score = state.progress.scores[mission.id];
+  const record = state.progress.records[mission.id];
   const status = done ? t("completed") : locked ? t("locked") : t("open");
   const statusClass = done ? "pass" : locked ? "lock" : "";
 
@@ -735,6 +859,7 @@ function renderMissionCard(mission) {
           <span class="tag">${mission.code}</span>
           <span class="tag ${statusClass}">${status}</span>
           ${score !== undefined ? `<span class="tag">${score}%</span>` : ""}
+          ${record ? `<span class="tag ${record.status === "TERAMPIL" ? "pass" : "lock"}">${record.kt}: ${record.status}</span>` : ""}
         </div>
         <h3>${missionTitle(mission)}</h3>
         <p class="muted">${missionScope(mission)}</p>
@@ -744,8 +869,77 @@ function renderMissionCard(mission) {
   `;
 }
 
+function renderFormalReport() {
+  const rows = missions.map((mission) => {
+    const record = state.progress.records[mission.id];
+    const status = record?.status || t("notAssessed");
+    const score = record ? `${record.score}%` : "-";
+    const date = record ? formatDate(record.date) : "-";
+    const official = record?.official ? (state.lang === "bm" ? "YA" : "YES") : "-";
+    const locked = record?.locked ? (state.lang === "bm" ? "YA" : "YES") : "-";
+
+    return `
+      <tr>
+        <td>${mission.code}</td>
+        <td>${ktCode(mission.id)}</td>
+        <td>${missionTitle(mission)}</td>
+        <td>${score}</td>
+        <td><span class="mini-status ${record?.status === "TERAMPIL" ? "ok" : record ? "warn" : ""}">${status}</span></td>
+        <td>${official}</td>
+        <td>${locked}</td>
+        <td>${date}</td>
+      </tr>
+    `;
+  }).join("");
+
+  renderChrome(`
+    <section class="mission-page">
+      <div class="panel lesson-box">
+        <span class="eyebrow">${t("formalRecord")}</span>
+        <h1>${state.profile.name}</h1>
+        <p class="muted">${state.profile.id}</p>
+        <div class="toolbar" style="justify-content:flex-start">
+          <button class="btn" data-action="back">${t("back")}</button>
+          <button class="btn primary" data-action="print">${t("print")}</button>
+        </div>
+      </div>
+      <div class="panel lesson-box report-panel">
+        <div class="report-title">
+          <div>
+            <strong>COMPUTER SYSTEM SET-UP C01</strong>
+            <span>${state.lang === "bm" ? "Rekod keputusan formal KT01-KT15" : "Formal KT01-KT15 result record"}</span>
+          </div>
+          <strong>${state.lang === "bm" ? "Lulus" : "Pass"}: ${PASS_MARK}%</strong>
+        </div>
+        <div class="table-wrap">
+          <table class="result-table">
+            <thead>
+              <tr>
+                <th>KP</th>
+                <th>KT</th>
+                <th>${state.lang === "bm" ? "Tajuk" : "Title"}</th>
+                <th>${t("score")}</th>
+                <th>${t("status")}</th>
+                <th>${t("official")}</th>
+                <th>${t("locked")}</th>
+                <th>${t("resultDate")}</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+        <div class="signature-row">
+          <div><span>${t("assessor")}</span><strong>________________________</strong></div>
+          <div><span>${t("signature")}</span><strong>________________________</strong></div>
+        </div>
+      </div>
+    </section>
+  `);
+}
+
 function renderMission(id) {
   const mission = missions.find((item) => item.id === id);
+  const record = state.progress.records[id];
   if (!mission || mission.id > state.progress.unlocked) {
     renderDashboard();
     return;
@@ -763,6 +957,7 @@ function renderMission(id) {
           <button class="btn primary" data-action="quiz" data-mission="${mission.id}">${t("startQuiz")}</button>
         </div>
       </div>
+      ${record ? renderFormalResult(record) : ""}
       <div class="lesson-layout">
         <div class="panel lesson-box">
           <h2>${t("notes")}</h2>
@@ -1035,8 +1230,17 @@ function renderQuiz(id) {
     const correct = quiz.reduce((count, item, index) => count + (answers[index] === item[2] ? 1 : 0), 0);
     const score = Math.round((correct / quiz.length) * 100);
     const passed = score >= PASS_MARK;
+    const existingRecord = state.progress.records[id];
+
+    if (existingRecord?.locked && existingRecord?.official) {
+      document.getElementById("quizResult").innerHTML = renderFormalResult(existingRecord);
+      return;
+    }
+
+    const formalRecord = createFormalRecord(id, score, correct, quiz.length);
 
     state.progress.scores[id] = score;
+    state.progress.records[id] = formalRecord;
     if (passed && !state.progress.completed.includes(id)) {
       state.progress.completed.push(id);
       state.progress.completed.sort((a, b) => a - b);
@@ -1050,6 +1254,7 @@ function renderQuiz(id) {
         <strong>${t("score")}: ${score}%</strong><br>
         ${passed ? t("pass") : t("fail")}
       </div>
+      ${renderFormalResult(formalRecord)}
     `;
   });
 }
@@ -1094,11 +1299,13 @@ function bindGlobalActions() {
 
       if (action === "profile") renderDashboard();
       if (action === "back") renderDashboard();
+      if (action === "report") renderFormalReport();
+      if (action === "print") window.print();
       if (action === "speak") speakMission(Number(button.dataset.mission));
       if (action === "quiz") renderQuiz(Number(button.dataset.mission));
 
       if (action === "reset") {
-        state.progress = { unlocked: 1, scores: {}, completed: [] };
+        state.progress = { unlocked: 1, scores: {}, completed: [], records: {} };
         saveState();
         renderDashboard();
       }

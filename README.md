@@ -17,6 +17,8 @@ ABM interaktif untuk unit **IT-020-3:2013-C01 COMPUTER SYSTEM SET-UP**.
 - Simulasi asas perkakasan disediakan untuk topik komponen dan pemasangan.
 - KP01 dikemaskini dengan nota lengkap, simulasi tiket kerja sebenar, animasi aliran kerja, video-style briefing, aktiviti pelajar, mini game dan KT01 10 soalan.
 - Jawapan betul KT01 disusun pada kedudukan berbeza supaya tidak semuanya berada pada pilihan yang sama.
+- Keputusan formal KT ditambah: nama pelajar, ID, KP/KT, markah, status TERAMPIL/BELUM TERAMPIL, rasmi, locked, tarikh dan ruang pegawai penilai.
+- Markah 60% ke atas disimpan sebagai rasmi dan locked seperti standard C05.
 
 ## Fail
 
