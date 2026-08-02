@@ -692,7 +692,7 @@ function renderCollegeHeader() {
   return `
     <div class="college-header">
       <div class="college-logo">
-        <img src="assets/logo-mentari.png" alt="Logo Kolej Kemahiran Mentari" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+        <img src="assets/logo-kolej.png" alt="Logo Kolej Kemahiran Mentari" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
         <span>LOGO<br>KOLEJ</span>
       </div>
       <div class="college-info">
